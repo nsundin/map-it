@@ -1,0 +1,46 @@
+.graticule {
+  fill: none;
+  stroke: #222;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.land {
+  fill: #ccc;
+}
+
+.county-boundary {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: .5px;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #222;
+}
+
+.querier {
+  width: 640px;
+}
+
+.qfields, .qoptions {
+  width: 50%;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.where-item {
+  position: relative;
+}
+
+.slider-container {
+  margin: 10px 0;
+}
+
+.delete-button {
+  position: absolute;
+  right: 5px;
+  top: 0px;
+}

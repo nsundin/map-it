@@ -1,0 +1,8 @@
+var MapConstants = {
+  MAP_DATA_LOADED: 'MAP_DATA_LOADED',
+  GRAPH_CHANGE_EVENT: 'GRAPH_CHANGE_EVENT',
+  QUERIER_CHANGE_EVENT: 'QUERIER_CHANGE_EVENT'
+};
+
+
+module.exports = MapConstants;
