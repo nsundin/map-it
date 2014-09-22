@@ -44,3 +44,9 @@
   right: 5px;
   top: 0px;
 }
+
+.field-item {
+  display: inline-block;
+  margin: 3px;
+  padding: 5px;
+}

@@ -39,7 +39,7 @@ var Querier = React.createClass({
     }
     this.dragged.style.border 
     this.over.style.border = this.prevBorder;
-    this.dragged.style.display = "block";
+    this.dragged.style.display = "inline";
 
   },
 
@@ -87,14 +87,15 @@ var Querier = React.createClass({
   render: function() {
     var listItems = MapStore.getIntegerFields().map((function(item, i) {
       return (
-        <li data-id={i}
-          className="list-group-item"
+        <span
+          data-id={i}
+          className="label label-primary field-item"
           key={i}
           draggable="true"
           onDragEnd={this.dragEnd}
           onDragStart={this.dragStart}>
           {item}
-        </li>
+        </span>
       );
     }).bind(this));
 
@@ -129,9 +130,9 @@ var Querier = React.createClass({
         <div className="qfields">
           <div className="panel panel-primary">
             <div className="panel-heading">Fields</div>
-            <ul onDragOver={this.dragOver} className="list-group">
+            <div onDragOver={this.dragOver}>
               {listItems}
-            </ul>
+            </div>
           </div>
         </div>
         <div className="qoptions">
