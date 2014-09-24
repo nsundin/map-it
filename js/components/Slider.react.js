@@ -22,8 +22,6 @@ var Slider = React.createClass({
       initialValue: [0, 100],
       from: 0,
       to: 100,
-      heterogeneity: ['10/20', '36/50'],
-      scale: [0, '|', 10, '|' , 20, '|', 50, '|', 100],
       limits: false,
       step: 1
     };

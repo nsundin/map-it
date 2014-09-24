@@ -94,7 +94,7 @@ var Graph = React.createClass({
   },
 
   render: function() {
-    return <div></div>;
+    return <div className="graph"></div>;
   }
 });
 

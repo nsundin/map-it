@@ -20,15 +20,27 @@
   stroke: #222;
 }
 
+.graph {
+  float: left;
+}
+
 .querier {
-  width: 640px;
+  display: inline-block;
+  width: 480px;
 }
 
 .qfields, .qoptions {
-  width: 50%;
   padding: 10px;
   display: inline-block;
   vertical-align: top;
+}
+
+.qfields {
+  width: 40%;
+}
+
+.qoptions {
+  width: 60%;
 }
 
 .where-item {

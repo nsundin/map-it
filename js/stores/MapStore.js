@@ -25,7 +25,7 @@ var MapStore = merge(EventEmitter.prototype, {
     if (dataPoints.length) {
       for (key in dataPoints[0]) {
         if (!isNaN(dataPoints[0][key])) {
-          intKeys.push(key);
+          intKeys.push({name: key, range: [0, 100]});
         }
       }
     }

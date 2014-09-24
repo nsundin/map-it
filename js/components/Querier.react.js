@@ -29,12 +29,12 @@ var Querier = React.createClass({
     e.dataTransfer.setData("text/html", e.currentTarget);
   },
 
-  dragEnd: function(e) {
+  dragEnd: function(field, e) {
     if (this.over === this.refs.show.getDOMNode()) {
       this.setState({show: this.dragged.innerHTML});
     } else if (this.over == this.refs.where.getDOMNode()) {
       var where = this.state.where;
-      where.push({name: this.dragged.innerHTML, range: [0, 100]});
+      where.push(field);
       this.setState({where:  where});
     }
     this.dragged.style.border 
@@ -85,16 +85,16 @@ var Querier = React.createClass({
   },
 
   render: function() {
-    var listItems = MapStore.getIntegerFields().map((function(item, i) {
+    var listItems = MapStore.getIntegerFields().map((function(field, i) {
       return (
         <span
           data-id={i}
           className="label label-primary field-item"
           key={i}
           draggable="true"
-          onDragEnd={this.dragEnd}
+          onDragEnd={this.dragEnd.bind(this, field)}
           onDragStart={this.dragStart}>
-          {item}
+          {field.name}
         </span>
       );
     }).bind(this));
@@ -127,14 +127,6 @@ var Querier = React.createClass({
 
     return (
       <div className="querier">
-        <div className="qfields">
-          <div className="panel panel-primary">
-            <div className="panel-heading">Fields</div>
-            <div onDragOver={this.dragOver}>
-              {listItems}
-            </div>
-          </div>
-        </div>
         <div className="qoptions">
           <div>
             Show me:
@@ -151,6 +143,14 @@ var Querier = React.createClass({
               className="list-group">
               {wheres}
             </ul>
+          </div>
+        </div>
+        <div className="qfields">
+          <div className="panel panel-primary">
+            <div className="panel-heading">Fields</div>
+            <div onDragOver={this.dragOver}>
+              {listItems}
+            </div>
           </div>
         </div>
       </div>
