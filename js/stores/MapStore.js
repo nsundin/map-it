@@ -35,7 +35,7 @@ var MapStore = merge(EventEmitter.prototype, {
     if (dataPoints.length) {
       for (key in dataPoints[0]) {
         if (!isNaN(dataPoints[0][key])) {
-          intKeys[key] = {name: key, range: [0, 0]};
+          intKeys[key] = {name: key, range: [null, null]};
         }
       }
     }
@@ -44,11 +44,11 @@ var MapStore = merge(EventEmitter.prototype, {
       for (fieldIndex in intKeys) {
         // Min
         val = Number(point[intKeys[fieldIndex].name]);
-        if (val < intKeys[fieldIndex].range[0]) {
+        if (val < intKeys[fieldIndex].range[0] || !intKeys[fieldIndex].range[0]) {
           intKeys[fieldIndex].range[0] = val;
         }
         // Max
-        if (val > intKeys[fieldIndex].range[1]) {
+        if (val > intKeys[fieldIndex].range[1] || !intKeys[fieldIndex].range[1]) {
           intKeys[fieldIndex].range[1] = val;
         }
       }
