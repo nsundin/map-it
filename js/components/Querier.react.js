@@ -101,7 +101,7 @@ var Querier = React.createClass({
 
     var wheres;
     if (this.state.where.length) {
-      wheres = this.state.where.map((function(item, i) {
+      var where_items = this.state.where.map((function(item, i) {
         return (
           <li 
             data-id={i}
@@ -121,8 +121,18 @@ var Querier = React.createClass({
           </li>
         );
       }).bind(this));
+      wheres = (<ul
+              ref="where"
+              onDragOver={this.dragOver.bind(this, 'where')}
+              className="list-group">{where_items}</ul>);
     } else {
-      wheres = <li>Drag item here</li>;
+      wheres = (
+        <div
+          ref="where"
+          onDragOver={this.dragOver.bind(this, 'where')}
+          className="well well-sm">
+          Drop and item here
+        </div>);
     }
 
     return (
@@ -137,12 +147,7 @@ var Querier = React.createClass({
               {this.state.show}
             </div>
             Where:
-            <ul
-              ref="where"
-              onDragOver={this.dragOver.bind(this, 'where')}
-              className="list-group">
-              {wheres}
-            </ul>
+            {wheres}
           </div>
         </div>
         <div className="qfields">

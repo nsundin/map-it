@@ -32,7 +32,7 @@ var Slider = React.createClass({
       value: this.props.initialValue
     };
   },
-  
+
   componentDidMount: function() {
     var root = this.getDOMNode();
     jQuery(root).find("input")
