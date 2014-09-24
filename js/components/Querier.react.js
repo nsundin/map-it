@@ -21,6 +21,10 @@ var Querier = React.createClass({
     this.setState({where:  where});
   },
 
+  onClearShowMe: function(event) {
+    this.setState({show:  ''});
+  },
+
   dragStart: function(e) {
     this.dragged = e.currentTarget;
     e.dataTransfer.effectAllowed = 'move';
@@ -67,9 +71,7 @@ var Querier = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this.state.show) {
-      MapStore.setColorField(this.state.show);
-    }
+    MapStore.setColorField(this.state.show);
     MapStore.setFilter((function(d) {
       for (i in this.state.where) {
         var e = this.state.where[i];
@@ -141,6 +143,15 @@ var Querier = React.createClass({
         </div>);
     }
 
+    var showMeClose = null;
+    if (this.state.show) {
+      showMeClose =
+        <button 
+            className="close"
+            onClick={this.onClearShowMe}>
+            &times;
+        </button>;
+    }
     return (
       <div className="querier">
         <div className="qoptions">
@@ -150,7 +161,7 @@ var Querier = React.createClass({
               ref="show"
               onDragOver={this.dragOver.bind(this, 'show')}
               className="well well-sm">
-              {this.state.show}
+              {this.state.show} {showMeClose}
             </div>
             Where:
             {wheres}

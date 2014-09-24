@@ -56,7 +56,7 @@ var MapStore = merge(EventEmitter.prototype, {
     for (fieldIndex in intKeys) {
       intKeys[fieldIndex].colorScale = d3.scale.linear()
         .domain(intKeys[fieldIndex].range)
-        .range(['red', 'green']);
+        .range(['blue', 'red']);
     }
     return intKeys;
   },
