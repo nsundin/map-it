@@ -7,6 +7,7 @@ var merge = require('react/lib/merge');
 var dataFilter = function(d) { return true; };
 var dataPoints = [];
 
+var colorField = null;
 var fields = [];
 var filteredDataCache = null;
 var cachedFilter = null;
@@ -20,14 +21,42 @@ var MapStore = merge(EventEmitter.prototype, {
     return fields;
   },
 
+  setColorField: function(fieldName) {
+    colorField = fieldName;
+    MapStore.emitEvent(MapConstants.GRAPH_CHANGE_EVENT);
+  },
+
+  getColorField: function() {
+    return colorField;
+  },
+
   generateIntegerFields: function() {
     var intKeys = [];
     if (dataPoints.length) {
       for (key in dataPoints[0]) {
         if (!isNaN(dataPoints[0][key])) {
-          intKeys.push({name: key, range: [0, 100]});
+          intKeys[key] = {name: key, range: [0, 0]};
         }
       }
+    }
+    var val;
+    dataPoints.forEach(function(point) {
+      for (fieldIndex in intKeys) {
+        // Min
+        val = Number(point[intKeys[fieldIndex].name]);
+        if (val < intKeys[fieldIndex].range[0]) {
+          intKeys[fieldIndex].range[0] = val;
+        }
+        // Max
+        if (val > intKeys[fieldIndex].range[1]) {
+          intKeys[fieldIndex].range[1] = val;
+        }
+      }
+    });
+    for (fieldIndex in intKeys) {
+      intKeys[fieldIndex].colorScale = d3.scale.linear()
+        .domain(intKeys[fieldIndex].range)
+        .range(['red', 'green']);
     }
     return intKeys;
   },

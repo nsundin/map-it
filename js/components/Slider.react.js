@@ -37,6 +37,7 @@ var Slider = React.createClass({
     var root = this.getDOMNode();
     jQuery(root).find("input")
       .slider({
+        skin: 'plastic',
         from: this.props.from,
         to: this.props.to,
         heterogeneity: this.props.heterogeneity,

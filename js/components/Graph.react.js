@@ -71,6 +71,17 @@ var Graph = React.createClass({
 
   renderD3: function() {
     var filteredData = MapStore.getFilteredData();
+    var colorField = MapStore.getColorField();
+    var colorFunction = null;
+    if (colorField) {
+      var fields = MapStore.getIntegerFields();
+      if (fields[colorField]) {
+        var colorScale = fields[colorField].colorScale;
+        colorFunction = function(d) {
+          return colorScale(d[colorField]);
+        };
+      }
+    }
     var projection = this.getProjection();
     var svg = d3.select(this.getDOMNode()).select('svg');
 
@@ -79,8 +90,10 @@ var Graph = React.createClass({
       .append('circle')
       .attr('r', '1px')
       .attr('cx', function (d) { return projection([d['LONGITUD'], d['LATITUDE']])[0]; })
-      .attr('cy', function (d) { return projection([d['LONGITUD'], d['LATITUDE']])[1]; })
-      .attr('fill', 'red');
+      .attr('cy', function (d) { return projection([d['LONGITUD'], d['LATITUDE']])[1]; });
+
+    svg.selectAll('circle').data(filteredData)
+      .attr('fill', colorFunction);
 
     svg.selectAll('circle').data(filteredData).exit()
       .transition()

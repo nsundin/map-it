@@ -11,7 +11,7 @@ var Querier = React.createClass({
   getInitialState: function() {
     return {
       where: [],
-      show: 'Drop an item here'
+      show: ''
     };
   },
 
@@ -67,6 +67,9 @@ var Querier = React.createClass({
   },
 
   componentDidUpdate: function() {
+    if (this.state.show) {
+      MapStore.setColorField(this.state.show);
+    }
     MapStore.setFilter((function(d) {
       for (i in this.state.where) {
         var e = this.state.where[i];
@@ -85,16 +88,17 @@ var Querier = React.createClass({
   },
 
   render: function() {
-    var listItems = MapStore.getIntegerFields().map((function(field, i) {
+    var fields = MapStore.getIntegerFields();
+    var listItems = Object.keys(fields).map((function(name, i) {
       return (
         <span
           data-id={i}
           className="label label-primary field-item"
           key={i}
           draggable="true"
-          onDragEnd={this.dragEnd.bind(this, field)}
+          onDragEnd={this.dragEnd.bind(this, fields[name])}
           onDragStart={this.dragStart}>
-          {field.name}
+          {name}
         </span>
       );
     }).bind(this));
@@ -111,6 +115,8 @@ var Querier = React.createClass({
             <div className="slider-container">
               <Slider
                 initialValue={item.range}
+                from={item.range[0]}
+                to={item.range[1]}
                 onChange={this.onRangeChange.bind(this, i)} />
             </div>
             <button 
