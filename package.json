@@ -4,7 +4,6 @@
   "description": "Online mapping software.",
   "main": "js/app.js",
   "dependencies": {
-    "es6-promise": "~0.1.1",
     "d3":"",
     "react": "~0.11.0",
     "topojson":"",
@@ -12,20 +11,20 @@
   },
   "devDependencies": {
     "browserify": "~2.36.0",
+    "envify": "~2.0.1",
     "reactify": "~0.4.0",
-    "statics": "~0.1.0",
     "uglify-js": "~2.4.13",
     "watchify": "~0.4.1"
   },
   "scripts": {
-    "start": "STATIC_ROOT=./static watchify -o js/bundle.js -v -d .",
-    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js",
-    "collect-static": "collect-static . ./static"
+    "start": "watchify -o js/bundle.js -v -d .",
+    "build": "NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js"
   },
   "author": "Nicholas Sundin",
   "browserify": {
     "transform": [
-      "reactify"
+      "reactify",
+      "envify"
     ]
   }
 }
