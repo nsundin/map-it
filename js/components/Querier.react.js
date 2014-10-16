@@ -110,8 +110,8 @@ var Querier = React.createClass({
       var where_items = this.state.where.map((function(item, i) {
         return (
           <li 
-            data-id={i}
-            key={i}
+            data-id={item.name}
+            key={item.name}
             className="list-group-item where-item">
             {item.name}
             <div className="slider-container">
